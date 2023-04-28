@@ -10,14 +10,10 @@ namespace EpplusTestConsole
         public string BarCode { get; set; }
         public string BrandName { get; set; }
         public string FormName { get; set; }
-
-        // [EpplusTableColumn(Order = 2, Header = "Наименование продукта")]
         public string Name { get; set; }
         public int PackageCount { get; set; }
         public double Volume { get; set; }
         public double Weight { get; set; }
-
-        //  [EpplusTableColumn(Order = 1, Header = "Ширина")]
         public string AParam { get; set; }
         public string BParam { get; set; }
         public string BpParam { get; set; }
@@ -26,8 +22,6 @@ namespace EpplusTestConsole
         public string EParam { get; set; }
         public string FParam { get; set; }
         public string GParam { get; set; }
-
-        // [EpplusTableColumn(Order = 3, Header = "Высота")]
         public string HParam { get; set; }
         public string NrParam { get; set; }
         public decimal DecimalVolume => Math.Truncate((decimal)Volume * 10000000m) / 10000000m;

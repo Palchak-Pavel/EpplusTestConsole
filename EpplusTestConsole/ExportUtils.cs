@@ -9,10 +9,6 @@ namespace EpplusTestConsole
 {
     public static class ExportUtils
     {
-
-        // Из-за разных наименований размеров у каждого товара не можем использовать стандартные названия полей
-        // Поискать анонимный тип, в который можно запихнуть эти названия (в анонимном типе надо явно присваивать свойства, а у нас это не позволяет сделать разные наименования полей)
-        // Присваивать названия надо после получения коллекции (collection) в методе
         public static void LoadFromCollection<TObject>(ExcelWorksheet sheet, (string literal, int numeric) address, TObject[] collection, string[] colums, bool printHeaders = false) where TObject : class
         {
             //Передать данные сразу из двух массивов?
@@ -23,18 +19,10 @@ namespace EpplusTestConsole
 
 
             //Загрузка данных коллекции по адресу
-
-            // как добавить данные в существующую коллекцию в среде epplus ???
-
-
-
             using var range = sheet.Cells[address.literal + address.numeric].LoadFromCollection(collection, printHeaders,
                 OfficeOpenXml.Table.TableStyles.None,
                 BindingFlags.Instance | BindingFlags.Public,
                 membersToInclude);
-
-
-
             if (collection.Length > 0)
             {
 
@@ -70,49 +58,3 @@ namespace EpplusTestConsole
         }
     }
 }
-
-//Передаёт данные из массива в таблицу, а нам нужна замена существующих наименований полей
-
-
-//public byte[] TestExcellGeneration_HorizontalLoadFromCollection()
-//{
-//    byte[] result = null;
-//    using (ExcelPackage pck = new ExcelPackage())
-//    {
-//        var foo = pck.Workbook.Worksheets.Add("Foo");
-//        var randomData = new[] { "Foo", "Bar", "Baz" }.ToList();
-//        //foo.Cells["B4"].LoadFromCollection(randomData);
-
-//        int startColumn = 2; // "B";
-//        int startRow = 4;
-//        for (int i = 0; i < randomData.Count; i++)
-//        {
-//            foo.Cells[startRow, startColumn + i].Value = randomData[i];
-//        }
-
-//        result = pck.GetAsByteArray();
-//    }
-//    return result;
-//}
-
-// Минусы: задаётся диапазон ячеек. При появлении нового столбца, надо будет вручную добавлять его в код.
-
-//var exportedPersons = sheet.Cells["A2:E3"].ToCollectionWithMappings(row =>
-//{
-//    return new Person
-//    {
-//        FirstName = row.GetValue<string>("Fn"),
-//        LastName = row.GetValue<string>("Ln"),
-//        Height = row.GetValue<int>("H"),
-//        BirthDate = row.GetValue<DateTime>("Bd")
-//    };
-//}, options => options.SetCustomHeaders("Fn", "Ln", "H", "Bd"));
-
-
-
-//var membersToInclude = new List<MemberInfo>();
-//var properties = typeof(TObject).GetProperties();
-//foreach (var property in properties)
-//{
-//    if (colums.Contains(property.Name)) membersToInclude.Add(property);
-//}
