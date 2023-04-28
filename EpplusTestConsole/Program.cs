@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace EpplusTestConsole
 {
@@ -126,9 +127,12 @@ namespace EpplusTestConsole
                 },
             };
 
-            var filename = @"D:\test.xlsx";
+            var filename = @"C:\Files\test.xlsx";
             var sheetname = "Лист 1";
-            ExportUtils.BaseExport<ProductDimensionDTO>(productsDimensions.ToArray(), ("A", 1), filename, sheetname);
+            var columns = new[] { "Name", "AParam", "HParam" };
+            var headers = new[] { "Высота", "Ширина", "Внутренний диаметр (B)" };
+
+            ExportUtils.BaseExport<ProductDimensionDTO>(productsDimensions.ToArray(), ("A", 1), filename, sheetname, columns, headers);
         }
     }
 }
